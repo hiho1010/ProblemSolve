@@ -1,33 +1,32 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int N;
-    static int K;
-    static int MAX_TEMPERATURE;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        K = Integer.parseInt(st.nextToken());
-        int[] temperatures = Arrays.stream(br.readLine().split(" "))
-                .mapToInt(Integer::parseInt).toArray();
 
-        int tmp = 0;
-        for (int j = 0; j < K; j++) {
-            tmp += temperatures[j];
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+
+        int[] temperatures = new int[n];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            temperatures[i] = Integer.parseInt(st.nextToken());
         }
-        MAX_TEMPERATURE = tmp;
-        for (int i = 1; i < N - K + 1; i++) {
-            tmp += temperatures[i+K-1] - temperatures[i-1];
-            if(tmp > MAX_TEMPERATURE) {
-                MAX_TEMPERATURE = tmp;
-            }
+
+        int currentSum = 0;
+        for (int i = 0; i < k; i++) {
+            currentSum += temperatures[i];
         }
-        System.out.println(MAX_TEMPERATURE);
+
+        int maxSum = currentSum;
+
+        for (int i = k; i < n; i++) {
+            currentSum = currentSum - temperatures[i - k] + temperatures[i];
+            maxSum = Math.max(maxSum, currentSum);
+        }
+
+        System.out.println(maxSum);
     }
 }
