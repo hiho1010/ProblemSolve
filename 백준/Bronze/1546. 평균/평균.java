@@ -1,33 +1,32 @@
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static int n;
-    static long max, sum;
-    static double avg;
-    static long[] scores;
-
+    
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
     public static void main(String[] args) throws IOException {
-        n = Integer.parseInt(br.readLine());
-        scores = new long[n];
+        
+
+        int n = Integer.parseInt(br.readLine());
+        double[] scores = new double[n];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
+        double maxScore = 0;
         for (int i = 0; i < n; i++) {
-            scores[i] = Integer.parseInt(st.nextToken());
+            scores[i] = Double.parseDouble(st.nextToken());
+            if (scores[i] > maxScore) {
+                maxScore = scores[i];
+            }
         }
-        max = Arrays.stream(scores).max().getAsLong();
 
-        for (long score : scores) {
-            sum += score;
+        double sum = 0;
+        for (int i = 0; i < n; i++) {
+            scores[i] = (scores[i] / maxScore) * 100;
+            sum += scores[i];
         }
-        avg = (double) sum /max/n*100;
+        double average = sum / n;
 
-        System.out.println(avg);
-
+        System.out.println(average);
     }
 }
