@@ -1,28 +1,23 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Main {
-    static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static String text;
-    static int n;
-    static int out = 1;
 
-    public static void main(String[] args) throws IOException {
-        text = br.readLine();
-        n = text.length();
-        int check = n / 2;
+    public void solution() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String word = br.readLine();
+        int answer = 1;
 
-        for (int i = 0; i < check; i++) {
-            int prev = text.charAt(i);
-            int next = text.charAt(n - i - 1);
-            
-            if (prev != next) {
-                out = 0;
+        for (int i = 0; i <= (word.length() - 1) / 2; i++) {
+            if (word.charAt(i) != word.charAt(word.length() - 1 - i)) {
+                answer = 0;
                 break;
             }
         }
 
-        System.out.println(out);
+        System.out.println(answer);
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
     }
 }
