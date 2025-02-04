@@ -6,19 +6,17 @@ public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static StringTokenizer st;
     static int N, M;
-    static int[][] map;
+    static char[][] map;
 
     public static void main(String[] args) throws Exception {
         st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        map = new int[N][M];
+        map = new char[N][M];
 
         for (int i = 0; i < N; i++) {
             String line = br.readLine();
-            for (int j = 0; j < M; j++) {
-                map[i][j] = line.charAt(j);
-            }
+            map[i] = line.toCharArray();
         }
 
         int maxSquareSize = Math.min(N, M);
@@ -28,9 +26,10 @@ public class Main {
             boolean found = false;
             for (int i = 0; i <= N - size; i++) {
                 for (int j = 0; j <= M - size; j++) {
-                    if (map[i][j] == map[i][j + size - 1] && 
-                        map[i][j] == map[i + size - 1][j] && 
-                        map[i][j] == map[i + size - 1][j + size - 1]) {
+                    char cornerValue = map[i][j];
+                    if (cornerValue == map[i][j + size - 1] && 
+                        cornerValue == map[i + size - 1][j] && 
+                        cornerValue == map[i + size - 1][j + size - 1]) {
                         answer = size;
                         found = true;
                         break;
