@@ -21,20 +21,26 @@ public class Main {
             }
         }
 
-        int maxSquareSize = 1;
+        int maxSquareSize = Math.min(N, M);
+        int answer = 1;
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                for (int size = 1; size <= Math.min(N - i, M - j); size++) {
+        for (int size = maxSquareSize; size >= 1; size--) {
+            boolean found = false;
+            for (int i = 0; i <= N - size; i++) {
+                for (int j = 0; j <= M - size; j++) {
                     if (map[i][j] == map[i][j + size - 1] && 
                         map[i][j] == map[i + size - 1][j] && 
                         map[i][j] == map[i + size - 1][j + size - 1]) {
-                        maxSquareSize = Math.max(maxSquareSize, size);
+                        answer = size;
+                        found = true;
+                        break;
                     }
                 }
+                if (found) break;
             }
+            if (found) break;
         }
 
-        System.out.println(maxSquareSize * maxSquareSize);
+        System.out.println(answer * answer);
     }
 }
