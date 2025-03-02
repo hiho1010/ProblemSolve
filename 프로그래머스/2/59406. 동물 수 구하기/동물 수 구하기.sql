@@ -1,0 +1,3 @@
+-- 코드를 입력하세요
+SELECT COUNT(AI.ANIMAL_ID) ANI_CNT 
+    FROM ANIMAL_INS AI;
