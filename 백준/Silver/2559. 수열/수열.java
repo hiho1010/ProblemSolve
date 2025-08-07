@@ -2,31 +2,34 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int[] temp;
+    static int N, K;
+
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
 
-        int n = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
+        temp = new int[N];
 
-        int[] temperatures = new int[n];
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            temperatures[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < N ; i++) {
+            temp[i] = Integer.parseInt(st.nextToken());
         }
 
-        int currentSum = 0;
-        for (int i = 0; i < k; i++) {
-            currentSum += temperatures[i];
+        int sum = 0;
+        for (int i = 0; i < K; i++) {
+            sum += temp[i];
         }
 
-        int maxSum = currentSum;
+        int max = sum;
 
-        for (int i = k; i < n; i++) {
-            currentSum = currentSum - temperatures[i - k] + temperatures[i];
-            maxSum = Math.max(maxSum, currentSum);
+        for (int i = K; i < N; i++) {
+            sum = sum - temp[i - K] + temp[i];
+            max = Math.max(max, sum);
         }
 
-        System.out.println(maxSum);
+        System.out.println(max);
     }
 }
