@@ -1,50 +1,37 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static StringTokenizer st;
     static int N;
-    static int[] distances;
-    static int[] prices;
-    static int min;
+    static long[] dist, price;
 
-    private static void solution() throws Exception {
+    public static void main(String[] args) throws IOException {
         N = Integer.parseInt(br.readLine());
-        distances = new int[N - 1];
-        prices = new int[N];
 
-        st = new StringTokenizer(br.readLine());
+        dist = new long[N - 1];
+        price = new long[N];
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N - 1; i++) {
-            distances[i] = Integer.parseInt(st.nextToken());
+            dist[i] = Long.parseLong(st.nextToken());
         }
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            prices[i] = Integer.parseInt(st.nextToken());
+            price[i] = Long.parseLong(st.nextToken());
         }
 
-        min = calculateMinimumPrice(distances, prices);
-        System.out.println(min);
-    }
+        long result = 0;
+        long minPrice = price[0];
 
-    private static int calculateMinimumPrice(int[] distances, int[] prices) {
-        int minPrice = prices[0];
-        int totalCost = 0;
-
-        for (int i = 0; i < distances.length; i++) {
-            if (prices[i] < minPrice) {
-                minPrice = prices[i];
+        for (int i = 0; i < N - 1; i++) {
+            if (price[i] < minPrice) {
+                minPrice = price[i];
             }
-            totalCost += minPrice * distances[i];
+            result += minPrice * dist[i];
         }
 
-        return totalCost;
-    }
-
-    public static void main(String[] args) throws Exception {
-        new Main().solution();
+        System.out.println(result);
     }
 }
