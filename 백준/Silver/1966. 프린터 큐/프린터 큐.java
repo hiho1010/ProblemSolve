@@ -6,12 +6,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         int testCase = Integer.parseInt(br.readLine());
+
         while (testCase-- > 0) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int N = Integer.parseInt(st.nextToken());
             int M = Integer.parseInt(st.nextToken());
 
-            Queue<int[]> q = new LinkedList<>();
+            Deque<int[]> q = new ArrayDeque<>();
             PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
 
             st = new StringTokenizer(br.readLine());
