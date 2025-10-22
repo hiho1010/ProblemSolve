@@ -1,50 +1,51 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int N;
-    static int target;
-    static int[][] snail;
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static int[] dr = {1, 0, -1, 0};
-    static int[] dc = {0, 1, 0, -1};
-    static int r = 0, c = 0, d = 0;
-    static int targetR = 0, targetC = 0;
-    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine().trim());
+        int target = Integer.parseInt(br.readLine().trim());
 
-    static void print(int[][] graph) {
-        for (int r = 0; r < graph.length; r++) {
-            for (int c = 0; c < graph.length; c++) {
-                if (target == snail[r][c]) {
-                    targetR = r + 1;
-                    targetC = c + 1;
-                }
-                sb.append(snail[r][c] + " ");
+        int[][] a = new int[N][N];
+
+        int[] dx = {1, 0, -1, 0};
+        int[] dy = {0, 1, 0, -1};
+
+        int x = 0, y = 0, d = 0;
+        int num = N * N;
+
+        int ansR = -1, ansC = -1;
+
+        while (num >= 1) {
+            a[x][y] = num;
+            if (num == target) {
+                ansR = x;
+                ansC = y;
             }
-            sb.append("\n");
-        }
-        sb.append(targetR + " " + targetC);
-        System.out.println(sb.toString());
-    }
 
-    public static void main(String[] args) throws IOException {
-        N = Integer.parseInt(br.readLine());
-        target = Integer.parseInt(br.readLine());
-        snail = new int[N][N];
-
-        for (int i = N*N; i > 0; i--) {
-            snail[r][c] = i;
-
-            int nr = r + dr[d];
-            int nc = c + dc[d];
-
-            if (nr < 0 || nr >= N || nc < 0 || nc >= N || snail[nr][nc] != 0) {
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+            if (nx < 0 || nx >= N || ny < 0 || ny >= N || a[nx][ny] != 0) {
                 d = (d + 1) % 4;
-                nr = r + dr[d];
-                nc = c + dc[d];
+                nx = x + dx[d];
+                ny = y + dy[d];
             }
-            r = nr;
-            c = nc;
+
+            x = nx;
+            y = ny;
+            num--;
         }
-        print(snail);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                sb.append(a[i][j]).append(' ');
+            }
+            sb.append('\n');
+        }
+        sb.append((ansR + 1)).append(' ').append((ansC + 1)).append('\n');
+
+        System.out.print(sb.toString());
     }
 }
